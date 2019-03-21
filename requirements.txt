@@ -26,7 +26,7 @@ Pyrebase==3.0.27
 python-dateutil==2.7.5
 python-jwt==2.0.1
 pytz==2018.9
-requests==2.11.1
+requests==2.21.0
 requests-toolbelt==0.7.0
 rsa==4.0
 six==1.12.0
