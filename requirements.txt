@@ -4,7 +4,7 @@ black==19.3b0
 certifi==2019.3.9
 chardet==3.0.4
 Click==7.0
-Django==2.1.5
+Django==2.1.7
 djangorestframework==3.9.1
 djangorestframework-simplejwt==3.3
 freezegun==0.3.11
@@ -20,13 +20,13 @@ protobuf==3.7.0
 psycopg2==2.7.7
 pyasn1==0.4.5
 pyasn1-modules==0.2.4
-pycryptodome==3.4.3
+pycryptodome==3.7.3
 PyJWT==1.7.1
 Pyrebase==3.0.27
 python-dateutil==2.7.5
 python-jwt==2.0.1
 pytz==2018.9
-requests==2.21.0
+requests==2.11.1
 requests-toolbelt==0.7.0
 rsa==4.0
 six==1.12.0
