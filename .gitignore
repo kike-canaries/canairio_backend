@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+db.sqlite3
+venv/
+google-services.json
+settings_local.py
