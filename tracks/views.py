@@ -15,6 +15,20 @@ def list_tracks(request):
     return Response(tracks.val())
 
 
+@api_view(['GET'])
+def get_track(request, track_id=None):
+    tracks = db.child("tracks_data")
+    if track_id:
+        tracks = tracks.order_by_child('name').equal_to(track_id).get()
+    else:
+        tracks = tracks.order_by_child('deviceId').limit_to_first(5).get()
+
+    # @todo:gustavo add filtering
+    # @todo:gustavo add sorting
+    # @todo:gustavo add pagination
+    return Response(tracks.val())
+
+
 @api_view(['POST'])
 def save_track(request):
     track_data = request.data
