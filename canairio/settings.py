@@ -159,6 +159,11 @@ SIMPLE_JWT = {
 
 TRACK_COLLECTION_NAME = 'test_tracks_data'
 
+FB_API_KEY = os.getenv('FB_API_KEY', '')
+FB_AUTH_DOMAIN = os.getenv('FB_AUTH_DOMAIN', '')
+FB_DATABASE_URL = os.getenv('FB_DATABASE_URL', '')
+FB_STORAGE_BUCKET = os.getenv('FB_STORAGE_BUCKET', '')
+
 if 'HEROKU' in os.environ:
     ENVIRONMENT = os.getenv('ENVIRONMENT', ENVIRONMENT)
 
