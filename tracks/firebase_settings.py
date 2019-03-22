@@ -1,6 +1,6 @@
 import pyrebase
 
-from canairio import settings
+from django.conf import settings
 
 
 def noquote(s):
