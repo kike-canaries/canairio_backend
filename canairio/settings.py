@@ -167,11 +167,11 @@ if 'HEROKU' in os.environ:
     FB_DATABASE_URL = os.getenv('FB_DATABASE_URL', '')
     FB_STORAGE_BUCKET = os.getenv('FB_STORAGE_BUCKET', '')
 
-    INFLUXDB_HOST = 'influxdb'
+    INFLUXDB_HOST = os.getenv('INFLUXDB_HOST', '')
     INFLUXDB_PORT = 8086
     INFLUXDB_USERNAME = None
     INFLUXDB_PASSWORD = None
-    INFLUXDB_DATABASE = 'example'
+    INFLUXDB_DATABASE = os.getenv('INFLUXDB_DATABASE', '')
     INFLUXDB_TIMEOUT = 10
 
 try:
