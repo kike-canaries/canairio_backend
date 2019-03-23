@@ -1,3 +1,6 @@
+import csv
+
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -17,16 +20,28 @@ def list_tracks(request):
 
 @api_view(['GET'])
 def get_track(request, track_id=None):
+    output = request.query_params.get('output', None)
     tracks = db.child("tracks_data")
-    if track_id:
-        tracks = tracks.order_by_child('name').equal_to(track_id).get()
-    else:
-        tracks = tracks.order_by_child('deviceId').limit_to_first(5).get()
+    if not track_id:
+        return Response({'message': 'Invalid track_id'}, status=400)
 
+    tracks = tracks.order_by_child('name').equal_to(track_id).get().val()
+
+    if output == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(track_id)
+
+        writer = csv.writer(response)
+        data = tracks[track_id]['data']
+        writer.writerow(data[0].keys())
+        for track in data:
+            writer.writerow(track.values())
+
+        return response
     # @todo:gustavo add filtering
     # @todo:gustavo add sorting
     # @todo:gustavo add pagination
-    return Response(tracks.val())
+    return Response(tracks)
 
 
 @api_view(['POST'])
