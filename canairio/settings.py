@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import django_heroku
 import os
+from dj_database_url import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from datetime import timedelta
@@ -179,6 +180,12 @@ if 'HEROKU' in os.environ:
     INFLUXDB_PASSWORD = None
     INFLUXDB_DATABASE = os.getenv('INFLUXDB_DATABASE', '')
     INFLUXDB_TIMEOUT = 10
+
+    DATABASES = {
+        'default': config(
+            default=config('DATABASE_URL')
+        )
+    }
 
 try:
     from canairio.settings_local import *
