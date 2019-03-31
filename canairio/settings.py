@@ -193,10 +193,10 @@ if 'HEROKU' in os.environ:
             default=config('DATABASE_URL')
         )
     }
-
-try:
-    from canairio.settings_local import *
-except ImportError:
-    print('You must create a settings_local.py file.')
+else:
+    try:
+        from canairio.settings_local import *
+    except ImportError:
+        print('You must create a settings_local.py file.')
 
 django_heroku.settings(locals())
