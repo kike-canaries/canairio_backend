@@ -4,3 +4,7 @@ db.sqlite3
 venv/
 google-services.json
 settings_local.py
+.DS_Store
+ENVdataDBSnapshot/
+backup_process.md
+canairioSnapshot/
