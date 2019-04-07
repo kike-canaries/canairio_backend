@@ -8,7 +8,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from points.influx_settings import influx_client
 from util import calculate_now_cast
+import logging
 
+logger = logging.getLogger(__name__)
 
 @api_view(['POST'])
 @authentication_classes((JWTAuthentication, BasicAuthentication))
@@ -23,6 +25,7 @@ def save_points(request):
     try:
         is_success = influx_client.write_points(point_data)
     except:
+        logger.exception('Error while saving points.')
         return Response(data={'success': False}, status=400)
     response_data = {
         'result': is_success
