@@ -17,6 +17,9 @@ def calculate_now_cast(results):
     sorted_concentrations = list(map(lambda d: d['mean_pm25'],
                          sorted(results, key=lambda k: dateutil.parser.parse(k['time']), reverse=True)))
 
+    if None in sorted_concentrations:
+        return None
+
     min_concentration = min(sorted_concentrations)
     max_concentration = max(sorted_concentrations)
 
