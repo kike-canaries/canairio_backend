@@ -1,5 +1,7 @@
 import dateutil
 
+from points.models import Sensor
+
 
 def calculate_now_cast(results):
     """
@@ -37,3 +39,10 @@ def calculate_now_cast(results):
     nowcast = sum_numerator/sum_denominator
 
     return nowcast
+
+def get_measurement_location(measurement):
+    try:
+        sensor = Sensor.objects.values_list('lat', 'lon').get(name=measurement['name'])
+    except:
+        return None
+    return sensor

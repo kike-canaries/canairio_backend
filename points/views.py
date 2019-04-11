@@ -1,5 +1,6 @@
 # Create your views here.
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -7,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from points.influx_settings import influx_client
-from util import calculate_now_cast
+from util import calculate_now_cast, get_measurement_location
 import logging
 
 logger = logging.getLogger(__name__)
@@ -37,6 +38,7 @@ def save_points(request):
 @api_view(['GET'])
 @authentication_classes((JWTAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
+@csrf_exempt
 def get_last_point(request):
     measurements = influx_client.get_list_measurements()
     results = []
@@ -68,6 +70,7 @@ def get_now_cast(request):
             """.format(settings.INFLUXDB_DATABASE, measurement['name'])
         ))
         measurement['nowcast_concentration'] = calculate_now_cast(next(iter(res), None))
+        measurement['location'] = get_measurement_location(measurement)
         results.append(measurement)
 
     return Response(results)
