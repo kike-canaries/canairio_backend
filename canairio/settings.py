@@ -150,8 +150,9 @@ INFLUXDB_PASSWORD = None
 INFLUXDB_DATABASE = 'canairio'
 INFLUXDB_TIMEOUT = 10
 
-if 'HEROKU' in os.environ:
-    ENVIRONMENT = os.getenv('ENVIRONMENT', ENVIRONMENT)
+ENVIRONMENT = os.getenv('ENVIRONMENT', ENVIRONMENT)
+if 'production' in ENVIRONMENT:
+
 
     FB_API_KEY = os.getenv('FB_API_KEY', '')
     FB_AUTH_DOMAIN = os.getenv('FB_AUTH_DOMAIN', '')
