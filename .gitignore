@@ -8,3 +8,4 @@ settings_local.py
 ENVdataDBSnapshot/
 backup_process.md
 canairioSnapshot/
+node_modules/

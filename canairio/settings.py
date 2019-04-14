@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'users',
     'tracks',
     'points',
-    'webpack_loader'
 ]
 
 MIDDLEWARE = [
@@ -79,15 +78,8 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'static'),
 )
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-    }
-}
 
 WSGI_APPLICATION = 'canairio.wsgi.application'
 

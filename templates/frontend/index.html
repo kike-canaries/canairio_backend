@@ -1,15 +1,18 @@
-{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Django React Webpack</title>
-    <!-- Webpack rendered CSS -->
-    {% render_bundle 'main' 'css' %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <title>Django DRF - React : Quickstart - Valentino G. - www.valentinog.com</title>
 </head>
 <body>
-    <div id="react-app"></div>
-    <!-- Webpack rendered JS -->
-    {% render_bundle 'main' 'js' %}
+  <section class="section">
+    <div class="container">
+          <div id="app" class="columns"><!-- React --></div>
+    </div>
+  </section>
 </body>
+{% load static %}
+<script src="{% static "frontend/main.js" %}"></script>
 </html>
