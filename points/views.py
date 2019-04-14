@@ -1,6 +1,7 @@
 # Create your views here.
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets, permissions
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from points.influx_settings import influx_client
+from points.serializers import SensorSerializer
 from util import calculate_now_cast, get_measurement_location
 import logging
 
@@ -74,3 +76,14 @@ def get_now_cast(request):
         results.append(measurement)
 
     return Response(results)
+
+
+class SensorViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = SensorSerializer
+
+    def get_queryset(self):
+        return self.request.user.sensors.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

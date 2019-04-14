@@ -1,0 +1,41 @@
+Create a user
+
+curl --request POST \
+--url http://localhost:8000/users/auth/register/ \
+--header 'content-type: application/json' \
+--data '{
+  "username": "user2",
+  "password": "hunter2"
+}'
+
+
+Login a user:
+
+curl --request POST \
+  --url http://localhost:8000/users/auth/login/ \
+  --header 'content-type: application/json' \
+  --data '{
+    "username": "user1",
+    "password": "hunter2"
+}'
+
+Get the current user:
+
+curl --request GET \
+  --url http://localhost:8000/users/auth/user/ \
+  --header 'Authorization: Token e9eed62b0e0d355db53d0239780471f9074feff638e05b92a4e2f6b23dc25419' \
+  --header 'content-type: application/json' \
+
+
+Create a sensor:
+
+curl --request POST \
+  --url http://localhost:8000/points/sensors/ \
+  --header 'content-type: application/json' \
+  --header 'Authorization: Token e9eed62b0e0d355db53d0239780471f9074feff638e05b92a4e2f6b23dc25419' \
+  --data '{
+    "mac": "somemac",
+    "lat": "4.12345678",
+    "lon": "-74.12345678",
+    "name": "somename"
+}'
