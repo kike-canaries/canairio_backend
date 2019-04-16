@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Sensors from "./components/Sensors";
+import Sensor from "./components/Sensor";
 import {Provider} from "react-redux";
 
 import {createStore} from "redux";
@@ -16,7 +17,7 @@ class App extends Component {
             <Provider store={store}>
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path="/" component={Sensors}/>
+                        <Route exact path="/" component={Sensor}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </BrowserRouter>

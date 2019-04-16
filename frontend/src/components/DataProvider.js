@@ -22,7 +22,7 @@ class DataProvider extends Component {
   }
   render() {
     const { data, loaded, placeholder } = this.state;
-    return loaded ? this.props.render(data) : <p>{placeholder}</p>;
+    return loaded ? this.props.render(data) : <p>{placeholder}</p>
   }
 }
 export default DataProvider;
