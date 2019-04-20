@@ -32,7 +32,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['gblabs.co']
 
-CORS_ORIGIN_WHITELIST = ['localhost:3000', 'canairiofront.herokuapp.com']
+CORS_ORIGIN_WHITELIST = ['canairiofront.herokuapp.com']
 
 # Application definition
 
