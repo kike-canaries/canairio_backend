@@ -1,14 +1,13 @@
-FROM python:3.6-alpine3.7
+FROM python:3.6
 
-ENV PYTHONUNBUFFERED 1
+RUN apt-get update
+RUN apt-get install -y libpq-dev libxml2-dev libxmlsec1-dev libxmlsec1-openssl
 
-RUN apk update \
-    && apk add libpq postgresql-dev \
-    && apk add build-base
+ENV app /canairio
 
-WORKDIR /usr/src/app
+RUN mkdir $app
+WORKDIR $app
 
-COPY requirements.txt ./
+ADD . $app
 RUN pip install -r requirements.txt
-
-COPY . ./
+RUN python manage.py migrate

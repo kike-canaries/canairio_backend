@@ -2,24 +2,20 @@ version: '3'
 
 services:
 
-#  db:
-#    image: postgres
-#
-#  web:
-#    build: .
-#    command: python3 manage.py runserver 0.0.0.0:8000
-#    volumes:
-#      - ./canairio:/usr/web/app
-#    ports:
-#      - "8000:8000"
-#    depends_on:
-#      - db
-#      - influxdb
-#    links:
-#      - influxdb
-
   influxdb:
     image: influxdb
     ports:
       - "8083:8083"
       - "8086:8086"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/canairio
+    ports:
+      - "8000:8000"
+    depends_on:
+      - influxdb
+    links:
+      - influxdb

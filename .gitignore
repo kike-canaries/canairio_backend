@@ -9,3 +9,4 @@ ENVdataDBSnapshot/
 backup_process.md
 canairioSnapshot/
 node_modules/
+__pycache__
