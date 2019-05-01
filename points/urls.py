@@ -10,7 +10,7 @@ router.register('sensors', SensorViewSet, 'sensors')
 
 urlpatterns = [
     url('^', include(router.urls)),
-    path('save/', views.save_points),
-    path('get/', views.get_last_point),
-    path('get/nowcast', views.get_now_cast),
+    path('save/', views.save_points, name='save-measure'),
+    path('get/', views.get_last_point, name='latest-measure'),
+    path('get/nowcast', views.get_now_cast, name='get-now-cast'),
 ]
