@@ -7,7 +7,6 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 
 
-# Create your tests here.
 class FixedStationTestCase(APITestCase):
 
     def setUp(self):
@@ -48,9 +47,15 @@ class FixedStationTestCase(APITestCase):
 
     def test_createsensor(self):
         url_sensor = reverse('sensors-list')
+        res = self.client.get(url_sensor)
+        sensor_count = len(res.data)
+
         res = self.client.post(url_sensor, self.new_sensor_data)
-        data = res.data
         self.assertEqual(res.status_code, 201)
+
+        res = self.client.get(url_sensor)
+        self.assertEqual(len(res.data), sensor_count + 1)
+        data = res.data[-1]
         self.assertEqual(self.new_sensor_data['mac'], data['mac'])
         self.assertEqual(self.new_sensor_data['lat'], data['lat'])
         self.assertEqual(self.new_sensor_data['lon'], data['lon'])
@@ -70,6 +75,7 @@ class FixedStationTestCase(APITestCase):
             float(data['last_pm25']),
             self.new_point_data[0]['fields']['pm25']
         )
+
         # We should have added data recently
         ellapsed_seconds = (datetime.utcnow() - datetime.strptime(
             data['time'][:-4],

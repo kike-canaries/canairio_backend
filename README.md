@@ -1,4 +1,5 @@
-# Canairio Backend 
+# Canairio Backend
+
 > Recibimos los datos provenientes de los [canair.ios](https://canair.io)
 
 Si tiene interés en analizar información proveniente de la red ciudadana de calidad del aire,
@@ -9,8 +10,8 @@ encuentra información de como colaborar en el proyecto en la recepción y anál
 
 ## Ejecutar localmente el proyecto
 
-Este proyecto usa django-rest-framework y almacena los datos en influxdb, para correrlo localmente
-se requiere docker y docker-compose
+Este proyecto está basado en [django-rest-framework](https://www.django-rest-framework.org/) y almacena los datos en influxdb, para correrlo localmente
+se requiere [docker](https://www.docker.com/) y [docker-compose](https://docs.docker.com/compose/install/)
 
 1. clone el repositorio
 2. ejecute docker-compose desde el interior del directorio que obtuvo al clonar el repositorio
@@ -65,34 +66,35 @@ Que en caso exitoso responderá con los mismos datos enviados y el id.
 {"id":1,"mac":"D714E1CC605C","lat":"4.12345678","lon":"-74.12345678","name":"myhomecanair"}
 ```
 
-Tenemos más endpoints disponibles, pero le invitamos a que vea el conjunto
-de pruebas para que pueda ver cómo hacer solicitudes para añadir mediciones
+Tenemos más endpoints disponibles, y le invitamos a que vea el conjunto
+de pruebas para que inicie a hacer solicitudes al API para añadir mediciones
 o para obtener la medición más reciente.
 
-## En desarrollo
+## Para desarrollar y contribuir
 
 Cada vez que haga cambios y los guarde en su entorno de desarrollo local estos
 se verán reflejados en la instancia que está ejecutando en docker.
 
-Para que pueda pueda ver las trazas de los posibles erores por favor copie el archivo de configuración, en el mismo podrá hacer cambios de configuraciones si así lo desea.
-
-Esto solamente debe hacerlo la primera vez, porque es posible que después quiera
-hacer más cambios sobre el mismo para su entorno de desarrollo.
+Para que pueda ver las trazas de los posibles erores por favor copie el archivo de configuración, en el mismo podrá hacer cambios de configuraciones si así lo desea.
 
 ```bash
 cp scripts/dev_settings_local.py canairio/settings_local.py
 ```
 
+Esto solamente debe hacerlo la primera vez, porque es posible que después quiera
+hacer más cambios sobre el mismo para su entorno de desarrollo.
+
 ### Pruebas
 
-Para ejecutar las pruebas, ubíquese en el directorio clonado y ejecute,
-previamente debe haber hecho que el proyecto corra `docker-compose up`.
+Para correr las pruebas, ubíquese en el directorio clonado y ejecute:
 
 ```bash
 docker-compose exec web bash
 ```
 
-Y una vez en el shell, podrá ejecutar las pruebas
+>asegúrese que en otra terminal está ejecutando `docker-compose up`
+
+Y una vez en el shell, podrá ejercitar las pruebas
 
 ```bash
 python manage.py test
