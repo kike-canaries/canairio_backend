@@ -4,7 +4,7 @@
 Si tiene interés en analizar información proveniente de la red ciudadana de calidad del aire,
 o ayudar en el desarrollo de nuestro backend, está en el lugar correcto.
 
-Si desea conocer más del proyecto, por favor visite https://canair.io .  En este repositorio
+Si desea conocer más del proyecto, por favor visite [canair.io](https://canair.io) .  En este repositorio
 encuentra información de como colaborar en el proyecto en la recepción y análisis de datos.
 
 ## Ejecutar localmente el proyecto
@@ -40,28 +40,7 @@ curl --request POST \
 }'
 ```
 
-### Autenticar el usuario
-
-Con el usuario recién creado se puede autenticar
-
-```bash
-curl --request POST \
-  --url http://localhost:8000/users/auth/login/ \
-  --header 'content-type: application/json' \
-  --data '{
-    "username": "user2",
-    "password": "hunter2"
-}'
-```
-
-Que en caso exitoso ofrecerá un token que puede emplear
-para llamadas subsecuentes
-
-```json
-{"user":{"id":1,"username":"user2"},"token":"7cf9b723ba1b25fad53ffd4da7855229fbfeb5b6a9790a127a0466d9ae26af88"}
-```
-
-Con nuestro usuario autenticado y un token podemos proceder a crear un dispositivo
+Con este usuario podemos proceder a crear un dispositivo
 
 ### Crear un dispositivo
 
@@ -69,14 +48,14 @@ Enviaremos su dirección MAC, latitud, longitud y le asignaremos un nombre
 
 ```bash
 curl --request POST \
+  --user user2:hunter2 \
   --url http://localhost:8000/points/sensors/ \
   --header 'content-type: application/json' \
-  --header 'Authorization: Token 7cf9b723ba1b25fad53ffd4da7855229fbfeb5b6a9790a127a0466d9ae26af88' \
   --data '{
-    "mac": "D714E1CC605C",
+    "mac": "D714E1KU605C",
     "lat": "4.12345678",
     "lon": "-74.12345678",
-    "name": "myhomecanair"
+    "name": "mysecondcanair"
 }'
 ```
 
@@ -86,7 +65,9 @@ Que en caso exitoso responderá con los mismos datos enviados y el id.
 {"id":1,"mac":"D714E1CC605C","lat":"4.12345678","lon":"-74.12345678","name":"myhomecanair"}
 ```
 
-_La descripción de cada uno de los endpoints disponibles en [Wiki][wiki]._
+Tenemos más endpoints disponibles, pero le invitamos a que vea el conjunto
+de pruebas para que pueda ver cómo hacer solicitudes para añadir mediciones
+o para obtener la medición más reciente.
 
 ## En desarrollo
 
@@ -94,6 +75,33 @@ Cada vez que haga cambios y los guarde en su entorno de desarrollo local estos
 se verán reflejados en la instancia que está ejecutando en docker.
 
 Para que pueda pueda ver las trazas de los posibles erores por favor copie el archivo de configuración, en el mismo podrá hacer cambios de configuraciones si así lo desea.
+
+Esto solamente debe hacerlo la primera vez, porque es posible que después quiera
+hacer más cambios sobre el mismo para su entorno de desarrollo.
+
+```bash
+cp scripts/dev_settings_local.py canairio/settings_local.py
+```
+
+### Pruebas
+
+Para ejecutar las pruebas, ubíquese en el directorio clonado y ejecute,
+previamente debe haber hecho que el proyecto corra `docker-compose up`.
+
+```bash
+docker-compose exec web bash
+```
+
+Y una vez en el shell, podrá ejecutar las pruebas
+
+```bash
+python manage.py test
+```
+
+Tenga en cuenta que la información se almacena en la misma instancia de
+influxdb para pruebas y desarrollo, por lo tanto, si tiene un dispositivo
+que está enviando información a su instancia de influxdb en Docker, las
+pruebas podrían fallar bajo estas condiciones.
 
 ## Release History
 
@@ -105,7 +113,9 @@ El código está en inglés, tanto variables, nombres comentarios, comentarios d
 los commits.
 
 1. Haga un fork del proyecto (<https://github.com/yourname/yourproject/fork>)
-2. Cree una rama del mismo (`git checkout -b feature/fooBar`)
-3. Haga los commits necesarios con mensajes que describan el cometido de los cambios (`git commit -am 'Add some fooBar'`)
-4. Envíe los cambios a su rama (`git push origin feature/fooBar`)
-5. Abra un pull request
+1. Cree una rama del mismo (`git checkout -b feature/fooBar`)
+1. Haga los commits necesarios con mensajes que describan el cometido de los cambios (`git commit -am 'Add some fooBar'`)
+1. Envíe los cambios a su rama (`git push origin feature/fooBar`)
+1. Ejecute pruebas y asegure que estas continúan funcionando y que su código nuevo
+también es ejercitado
+1. Abra un pull request
