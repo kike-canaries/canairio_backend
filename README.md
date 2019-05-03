@@ -24,8 +24,20 @@ Esto le permitirá hacer peticiones desde su entorno de desarollo a localhost:80
 
 ## Primeros pasos
 
-Para hacer una prueba local rápida puede crear un usuario, autenticarlo, con el token
-de autenticación crear un dispositivo y enviar una medición desde tal dispositivo.
+Para hacer una prueba local rápida puede crear un usuario, autenticarlo,
+crear un dispositivo y enviar una medición desde tal dispositivo.
+
+Para ello abra una conexión a Docker con
+
+```bash
+docker-compose exec web bash
+```
+
+Y estando al interior, haga que el servidor web se ejecute
+
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
 
 ### Crear un usuario
 
