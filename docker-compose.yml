@@ -10,7 +10,7 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ./start
     volumes:
       - .:/canairio
     ports:
@@ -19,3 +19,6 @@ services:
       - influxdb
     links:
       - influxdb
+    environment:
+      - INFLUXDB_HOST=influxdb
+

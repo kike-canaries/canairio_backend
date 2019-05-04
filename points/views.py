@@ -34,7 +34,7 @@ def save_points(request):
     response_data = {
         'result': is_success
     }
-    return Response(data=response_data, status=200)
+    return Response(data=response_data, status=201)
 
 
 @api_view(['GET'])
