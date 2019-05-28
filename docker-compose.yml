@@ -12,7 +12,16 @@ services:
     image: timescale/timescaledb-postgis
     ports:
       - "15432:5432"
-
+    build:
+      context: .
+      args:
+        - db_name=canairio
+      dockerfile: Dockerfile_timescaledb
+    environment:
+      - POSTGRES_USER=canairio
+      - POSTGRES_PASSWORD=canairio
+      - POSTGRES_DB=canairio
+      - POSTGRES_TEST_DB=canairio_test
   web:
     build: .
     command: ./start
@@ -27,5 +36,8 @@ services:
       - influxdb
       - timescaledb
     environment:
-      - INFLUXDB_HOST=influxdb
+      - DJANGO_SETTINGS_MODULE=canairio.settings.development
+      - DATABASE_USERNAME=canairio
+      - DATABASE_PASSWORD=canairio
       - POSTGRESQL_HOST=timescaledb
+      - INFLUXDB_HOST=influxdb

@@ -109,7 +109,7 @@ docker-compose exec web bash
 Y una vez en el shell, podrá ejercitar las pruebas
 
 ```bash
-python manage.py test
+python manage.py test --settings=canairio.settings.testing
 ```
 
 Tenga en cuenta que la información se almacena en la misma instancia de
