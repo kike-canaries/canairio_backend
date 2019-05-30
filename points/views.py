@@ -51,7 +51,8 @@ def get_last_point(request):
             FROM "canairio"."autogen"."{}" 
             """.format(measurement['name'])
         ))
-        results.append({**measurement, **res[0][0]})
+        if res:
+            results.append({**measurement, **res[0][0]})
 
     return Response(results)
 
