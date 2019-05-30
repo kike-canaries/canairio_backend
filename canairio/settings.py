@@ -126,7 +126,7 @@ INFLUXDB_DATABASE = 'canairio'
 INFLUXDB_TIMEOUT = 10
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', ENVIRONMENT)
-if 'production' in ENVIRONMENT:
+if 'production' in ENVIRONMENT or 'CIRCLE_ENV' in os.environ:
 
 
     FB_API_KEY = os.getenv('FB_API_KEY', '')
