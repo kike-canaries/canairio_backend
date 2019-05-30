@@ -2,11 +2,11 @@ version: 2
 jobs:
   build:
     working_directory: ~/circleci-demo-python-django
+    environment:
+      DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      CIRCLE_ENV: true
     docker:
       - image: circleci/python:3.6.4
-        environment:
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-          CIRCLE_ENV: true
       - image: circleci/postgres:11
         environment:
           POSTGRES_USER: root
@@ -26,6 +26,7 @@ jobs:
       - run:
           command: |
             python manage.py test
+
       - store_test_results:
           path: test-results
       - store_artifacts:
