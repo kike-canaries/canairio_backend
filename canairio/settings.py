@@ -126,7 +126,7 @@ INFLUXDB_DATABASE = 'canairio'
 INFLUXDB_TIMEOUT = 10
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', ENVIRONMENT)
-if 'production' in ENVIRONMENT or 'CIRCLE_ENV' in os.environ:
+if 'production' in ENVIRONMENT:
 
 
     FB_API_KEY = os.getenv('FB_API_KEY', '')
@@ -143,9 +143,10 @@ if 'production' in ENVIRONMENT or 'CIRCLE_ENV' in os.environ:
 
     DATABASES = {
         'default': config(
-            default=config('DATABASE_URL')
+            default=config('DATABASE_URL', ssl_require='CIRCLE_ENV' in os.environ)
         )
     }
+
 else:
     try:
         from canairio.settings_local import *
