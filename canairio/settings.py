@@ -143,7 +143,7 @@ if 'production' in ENVIRONMENT:
 
     DATABASES = {
         'default': config(
-            default=config('DATABASE_URL', ssl_require='CIRCLE_ENV' in os.environ)
+            default=config('DATABASE_URL')
         )
     }
 
@@ -154,3 +154,6 @@ else:
         print('You must create a settings_local.py file.')
 
 django_heroku.settings(locals())
+
+if 'CIRCLE_ENV' in os.environ:
+    del DATABASES['default']['OPTIONS']['sslmode']
