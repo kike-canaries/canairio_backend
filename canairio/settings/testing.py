@@ -2,10 +2,7 @@ from .base import *
 
 ENVIRONMENT = 'test'
 INFLUXDB_HOST = 'influxdb'
-try:
-    DATABASE_HOSTNAME = getenvvar('DATABASE_HOSTNAME')
-except:
-    DATABASE_HOSTNAME = 'timescaledb'
+DATABASE_HOSTNAME = getenvvar('POSTGRESQL_HOST')
 
 DATABASES = {
     'default': {

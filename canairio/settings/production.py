@@ -1,5 +1,7 @@
 from .base import *
 
+import django_heroku
+
 ENVIRONMENT = 'production'
 
 DEBUG = False
@@ -34,3 +36,5 @@ DATABASES = {
 }
 
 SECRET_KEY = getenvvar('SECRET_KEY')
+
+django_heroku.settings(locals())

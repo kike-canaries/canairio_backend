@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-import django_heroku
 import os
 from dj_database_url import config
 
@@ -122,5 +121,3 @@ INFLUXDB_USERNAME = None
 INFLUXDB_PASSWORD = None
 INFLUXDB_DATABASE = 'canairio'
 INFLUXDB_TIMEOUT = 10
-
-django_heroku.settings(locals())

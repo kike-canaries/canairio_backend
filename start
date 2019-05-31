@@ -1,6 +1,6 @@
 #!/bin/sh
 pip install -r requirements.txt
-influx -host $INFLUXDB_HOST -precision rfc3339 -execute 'CREATE DATABASE $INFLUXDB_NAME'
+influx -host $INFLUXDB_HOST -precision rfc3339 -execute 'CREATE DATABASE '$INFLUXDB_NAME
 python manage.py migrate
 
 while [ 1 ]; do
