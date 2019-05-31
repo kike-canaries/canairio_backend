@@ -41,4 +41,5 @@ services:
       - DATABASE_PASSWORD=canairio
       - POSTGRESQL_HOST=timescaledb
       - INFLUXDB_HOST=influxdb
-      - INFLUXDB_NAME=canairio
+      - INFLUXDB_DATABASE=canairio
+      - DATABASE_NAME=canairio

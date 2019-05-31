@@ -30,6 +30,17 @@ SECRET_KEY = '(e7f8&@wbya^bm7km^&-bd9-!0oqb3u*^62wq^3*9gqsoki#7!'
 
 DEBUG = True
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenvvar('DATABASE_NAME'),
+        'USER': getenvvar('DATABASE_USERNAME'),
+        'PASSWORD': getenvvar('DATABASE_PASSWORD'),
+        'HOST': getenvvar('POSTGRESQL_HOST'),
+        'PORT': '5432',
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -119,5 +130,5 @@ INFLUXDB_HOST = getenvvar('INFLUXDB_HOST')
 INFLUXDB_PORT = 8086
 INFLUXDB_USERNAME = None
 INFLUXDB_PASSWORD = None
-INFLUXDB_DATABASE = 'canairio'
+INFLUXDB_DATABASE = getenvvar('INFLUXDB_DATABASE')
 INFLUXDB_TIMEOUT = 10
