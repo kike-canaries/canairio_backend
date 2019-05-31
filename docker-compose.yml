@@ -9,7 +9,7 @@ services:
       - "8086:8086"
 
   timescaledb:
-    image: timescale/timescaledb-postgis
+    image: timescale/timescaledb-postgis:latest-pg11
     ports:
       - "15432:5432"
     build:
@@ -41,3 +41,4 @@ services:
       - DATABASE_PASSWORD=canairio
       - POSTGRESQL_HOST=timescaledb
       - INFLUXDB_HOST=influxdb
+      - INFLUXDB_NAME=canairio
