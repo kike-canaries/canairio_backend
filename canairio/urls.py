@@ -24,5 +24,4 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('tracks/', include('tracks.urls')),
     path('points/', include('points.urls')),
-    url(r'^', TemplateView.as_view(template_name="frontend/index.html")),
 ]
