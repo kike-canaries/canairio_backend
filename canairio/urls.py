@@ -23,11 +23,11 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="Canairio API",
       default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
+      description="This API is intended to share the contents of our Air Quality Sensors Data Cloud.",
+      terms_of_service="http://canair.io/disclaimer.html",
+      contact=openapi.Contact(email="gustavo@gblabs.co"),
       license=openapi.License(name="BSD License"),
    ),
    public=True,
