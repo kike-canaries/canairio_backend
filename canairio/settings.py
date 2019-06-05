@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'users',
     'tracks',
     'points',
-    'corsheaders'
+    'corsheaders',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
