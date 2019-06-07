@@ -1,6 +1,9 @@
 # Create your views here.
+import logging
+
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, permissions
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -11,7 +14,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from points.influx_settings import influx_client
 from points.serializers import SensorSerializer
 from util import calculate_now_cast, get_measurement_location
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +39,9 @@ def save_points(request):
     return Response(data=response_data, status=201)
 
 
+@swagger_auto_schema(
+    operation_description="Returns a list of objects for each of the registered sensors with their last reported PM "
+                          "2.5 values and the time of the last report.", method='get')
 @api_view(['GET'])
 @authentication_classes((JWTAuthentication, BasicAuthentication))
 @csrf_exempt
@@ -56,6 +61,12 @@ def get_last_point(request):
     return Response(results)
 
 
+@swagger_auto_schema(
+    operation_description="Returns a list of objects with NowCast values for each one of the stations currently "
+                          "registered in the system. The calculation requires the station to have transmitted data "
+                          "continuously for at least 12 hours. See "
+                          "https://cran.r-project.org/web/packages/PWFSLSmoke/vignettes/NowCast.html for  more "
+                          "information on NowCast.", method='get')
 @api_view(['GET'])
 @authentication_classes((JWTAuthentication, BasicAuthentication))
 def get_now_cast(request):
