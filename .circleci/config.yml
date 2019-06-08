@@ -25,7 +25,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - run: sudo rm /etc/apt/sources.list
-      - run: echo "deb http://archive.debian.org/debian/ stretch main" | sudo tee -a /etc/apt/sources.list
+      - run: echo "deb http://deb.debian.org/debian/ stretch main" | sudo tee -a /etc/apt/sources.list
       - run: echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
       - run: echo 'Package:\ *\nPin:\ origin \"archive.debian.org\"\nPin-Priority:\ 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
       - run: sudo apt-get update
