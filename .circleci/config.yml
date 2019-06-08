@@ -28,9 +28,9 @@ jobs:
 #          name: Create an influxdb
 #          command: |
 #            scripts/create_influx_db.sh
-#      - run:
-#          command: |
-#            python manage.py test
+     - run:
+         command: |
+           python manage.py test --settings=canairio.settings.testing
       - store_test_results:
           path: test-results
       - store_artifacts:
