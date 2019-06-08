@@ -6,6 +6,13 @@ jobs:
       CIRCLE_ENV: true
       DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       INFLUXDB_HOST: localhost
+      DJANGO_SETTINGS_MODULE: canairio.settings.development
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: canairio
+      POSTGRESQL_HOST: localhost
+      INFLUXDB_DATABASE: canairio
+      DATABASE_NAME: circle_test
+      ENVIRONMENT: development
     docker:
       - image: circleci/python:3.6.4
       - image: circleci/postgres:11
