@@ -16,13 +16,31 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Canairio API",
+      default_version='v1',
+      description="This API is intended to share the contents of our Air Quality Sensors Data Cloud.",
+      terms_of_service="http://canair.io/disclaimer.html",
+      contact=openapi.Contact(email="gustavo@gblabs.co"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('api/auth/', include('knox.urls')),
     path('users/', include('users.urls')),
     path('tracks/', include('tracks.urls')),
     path('points/', include('points.urls')),
-    url(r'^', TemplateView.as_view(template_name="frontend/index.html")),
 ]

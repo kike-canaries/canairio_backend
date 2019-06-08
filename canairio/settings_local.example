@@ -1,0 +1,28 @@
+ALLOWED_HOSTS = []
+
+DEBUG = True
+
+FB_API_KEY = ""
+FB_AUTH_DOMAIN = ""
+FB_DATABASE_URL = ""
+FB_STORAGE_BUCKET = ""
+
+INFLUXDB_HOST = 'localhost'
+INFLUXDB_PORT = 8086
+INFLUXDB_USERNAME = None
+INFLUXDB_PASSWORD = None
+INFLUXDB_DATABASE = 'canairio'
+INFLUXDB_TIMEOUT = 10
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'canairio',
+        'USER': 'canairio_user',
+        'PASSWORD': 'canairio_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+CORS_ORIGIN_WHITELIST = ['localhost:3000']

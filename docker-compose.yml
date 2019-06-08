@@ -43,3 +43,4 @@ services:
       - INFLUXDB_HOST=influxdb
       - INFLUXDB_DATABASE=canairio
       - DATABASE_NAME=canairio
+      - ENVIRONMENT=development

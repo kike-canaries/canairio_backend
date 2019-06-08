@@ -17,4 +17,10 @@ FB_STORAGE_BUCKET = getenvvar('FB_STORAGE_BUCKET')
 
 SECRET_KEY = getenvvar('SECRET_KEY')
 
+DATABASES = {
+    'default': config(
+        default=config('DATABASE_URL')
+    )
+}
+
 django_heroku.settings(locals())

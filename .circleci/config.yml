@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circleci-canairio
+    environment:
+      CIRCLE_ENV: true
+      DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      INFLUXDB_HOST: localhost
+    docker:
+      - image: circleci/python:3.6.4
+      - image: circleci/postgres:11
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+      - image: influxdb
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - run:
+          command: |
+            sudo pip install -r requirements.txt
+      - run:
+          name: Lint code after importing dependencies
+          command: |
+            scripts/pylint.sh
+#      - run:
+#          name: Create an influxdb
+#          command: |
+#            scripts/create_influx_db.sh
+#      - run:
+#          command: |
+#            python manage.py test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1

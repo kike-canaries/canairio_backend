@@ -32,7 +32,7 @@ DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': getenvvar('DATABASE_NAME'),
         'USER': getenvvar('DATABASE_USERNAME'),
         'PASSWORD': getenvvar('DATABASE_PASSWORD'),
@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'users',
     'tracks',
     'points',
-    'corsheaders'
+    'corsheaders',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,22 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'canairio.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 WSGI_APPLICATION = 'canairio.wsgi.application'
 
@@ -132,3 +149,8 @@ INFLUXDB_USERNAME = None
 INFLUXDB_PASSWORD = None
 INFLUXDB_DATABASE = getenvvar('INFLUXDB_DATABASE')
 INFLUXDB_TIMEOUT = 10
+
+ENVIRONMENT = getenvvar('ENVIRONMENT')
+
+if 'CIRCLE_ENV' in os.environ:
+    del DATABASES['default']['OPTIONS']['sslmode']

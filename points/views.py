@@ -39,7 +39,6 @@ def save_points(request):
 
 @api_view(['GET'])
 @authentication_classes((JWTAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 @csrf_exempt
 def get_last_point(request):
     measurements = influx_client.get_list_measurements()
@@ -51,14 +50,14 @@ def get_last_point(request):
             FROM "canairio"."autogen"."{}" 
             """.format(measurement['name'])
         ))
-        results.append({**measurement, **res[0][0]})
+        if res:
+            results.append({**measurement, **res[0][0]})
 
     return Response(results)
 
 
 @api_view(['GET'])
 @authentication_classes((JWTAuthentication, BasicAuthentication))
-@permission_classes((IsAuthenticated,))
 def get_now_cast(request):
     measurements = influx_client.get_list_measurements()
     results = []
