@@ -1,5 +1,7 @@
 # Canairio Backend
 
+[![CircleCI](https://circleci.com/gh/kike-canaries/canairio_backend.svg?style=svg)](https://circleci.com/gh/kike-canaries/canairio_backend)
+
 > Recibimos los datos provenientes de los [canair.ios](https://canair.io)
 
 Si tiene interés en analizar información proveniente de la red ciudadana de calidad del aire,
