@@ -24,9 +24,8 @@ jobs:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
-      - run:
-          command: |
-            sudo apt-get install -y libpq-dev libxml2-dev libxmlsec1-dev libxmlsec1-openssl binutils libproj-dev gdal-bin
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libpq-dev libxml2-dev libxmlsec1-dev libxmlsec1-openssl binutils libproj-dev gdal-bin
       - run:
           command: |
             sudo pip install -r requirements.txt
