@@ -151,6 +151,3 @@ INFLUXDB_DATABASE = getenvvar('INFLUXDB_DATABASE')
 INFLUXDB_TIMEOUT = 10
 
 ENVIRONMENT = getenvvar('ENVIRONMENT')
-
-if 'CIRCLE_ENV' in os.environ:
-    del DATABASES['default']['OPTIONS']['sslmode']
