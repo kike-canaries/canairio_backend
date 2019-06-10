@@ -9,30 +9,37 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-import django_heroku
 import os
 from dj_database_url import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from datetime import timedelta
 
-ENVIRONMENT = 'development'
+def getenvvar(name):
+    v = os.environ.get(name)
+    if not v:
+        raise Exception('Environment variable {} undefined'.format(name))
+    return v
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '(e7f8&@wbya^bm7km^&-bd9-!0oqb3u*^62wq^3*9gqsoki#7!'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['gblabs.co']
-
-CORS_ORIGIN_WHITELIST = ['canairiofront.herokuapp.com']
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': getenvvar('DATABASE_NAME'),
+        'USER': getenvvar('DATABASE_USERNAME'),
+        'PASSWORD': getenvvar('DATABASE_PASSWORD'),
+        'HOST': getenvvar('POSTGRESQL_HOST'),
+        'PORT': '5432',
+    },
+}
 
 # Application definition
 
@@ -130,47 +137,17 @@ REST_FRAMEWORK = {
 
 TRACK_COLLECTION_NAME = 'test_tracks_data'
 
-FB_API_KEY = os.getenv('FB_API_KEY', '')
-FB_AUTH_DOMAIN = os.getenv('FB_AUTH_DOMAIN', '')
-FB_DATABASE_URL = os.getenv('FB_DATABASE_URL', '')
-FB_STORAGE_BUCKET = os.getenv('FB_STORAGE_BUCKET', '')
+# Firebase
+FB_API_KEY = ''
+FB_AUTH_DOMAIN = ''
+FB_DATABASE_URL = ''
+FB_STORAGE_BUCKET = ''
 
-INFLUXDB_HOST = os.getenv('INFLUXDB_HOST', '')
+INFLUXDB_HOST = getenvvar('INFLUXDB_HOST')
 INFLUXDB_PORT = 8086
 INFLUXDB_USERNAME = None
 INFLUXDB_PASSWORD = None
-INFLUXDB_DATABASE = 'canairio'
+INFLUXDB_DATABASE = getenvvar('INFLUXDB_DATABASE')
 INFLUXDB_TIMEOUT = 10
 
-ENVIRONMENT = os.getenv('ENVIRONMENT', ENVIRONMENT)
-if 'production' in ENVIRONMENT:
-
-
-    FB_API_KEY = os.getenv('FB_API_KEY', '')
-    FB_AUTH_DOMAIN = os.getenv('FB_AUTH_DOMAIN', '')
-    FB_DATABASE_URL = os.getenv('FB_DATABASE_URL', '')
-    FB_STORAGE_BUCKET = os.getenv('FB_STORAGE_BUCKET', '')
-
-    INFLUXDB_HOST = os.getenv('INFLUXDB_HOST', '')
-    INFLUXDB_PORT = 8086
-    INFLUXDB_USERNAME = None
-    INFLUXDB_PASSWORD = None
-    INFLUXDB_DATABASE = os.getenv('INFLUXDB_DATABASE', '')
-    INFLUXDB_TIMEOUT = 10
-
-    DATABASES = {
-        'default': config(
-            default=config('DATABASE_URL')
-        )
-    }
-
-else:
-    try:
-        from canairio.settings_local import *
-    except ImportError:
-        print('You must create a settings_local.py file.')
-
-django_heroku.settings(locals())
-
-if 'CIRCLE_ENV' in os.environ:
-    del DATABASES['default']['OPTIONS']['sslmode']
+ENVIRONMENT = getenvvar('ENVIRONMENT')
