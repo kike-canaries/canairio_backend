@@ -6,9 +6,16 @@ jobs:
       CIRCLE_ENV: true
       DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       INFLUXDB_HOST: localhost
+      DJANGO_SETTINGS_MODULE: canairio.settings.development
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: canairio
+      POSTGRESQL_HOST: localhost
+      INFLUXDB_DATABASE: canairio
+      DATABASE_NAME: circle_test
+      ENVIRONMENT: development
     docker:
-      - image: circleci/python:3.6.4
-      - image: circleci/postgres:11
+      - image: circleci/python:3.6.4-stretch
+      - image: circleci/postgres:11-postgis-ram
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -17,6 +24,12 @@ jobs:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - run: sudo rm /etc/apt/sources.list
+      - run: echo "deb http://deb.debian.org/debian/ stretch main" | sudo tee -a /etc/apt/sources.list
+      - run: echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
+      - run: echo 'Package:\ *\nPin:\ origin \"archive.debian.org\"\nPin-Priority:\ 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libpq-dev libxml2-dev libxmlsec1-dev libxmlsec1-openssl influxdb-client binutils libproj-dev gdal-bin
       - run:
           command: |
             sudo pip install -r requirements.txt
@@ -24,13 +37,13 @@ jobs:
           name: Lint code after importing dependencies
           command: |
             scripts/pylint.sh
-#      - run:
-#          name: Create an influxdb
-#          command: |
-#            scripts/create_influx_db.sh
-#      - run:
-#          command: |
-#            python manage.py test
+      - run:
+          name: Create an influxdb
+          command: |
+            scripts/create_influx_db.sh
+      - run:
+          command: |
+            python manage.py test --settings=canairio.settings.testing
       - store_test_results:
           path: test-results
       - store_artifacts:
