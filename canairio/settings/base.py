@@ -26,19 +26,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-SECRET_KEY = '(e7f8&@wbya^bm7km^&-bd9-!0oqb3u*^62wq^3*9gqsoki#7!'
+SECRET_KEY = getenvvar('SECRET_KEY')
+
+DATABASE_URL = getenvvar('DATABASE_URL')
 
 DEBUG = True
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': getenvvar('DATABASE_NAME'),
-        'USER': getenvvar('DATABASE_USERNAME'),
-        'PASSWORD': getenvvar('DATABASE_PASSWORD'),
-        'HOST': getenvvar('POSTGRESQL_HOST'),
-        'PORT': '5432',
-    },
+    'default': config(default=DATABASE_URL)
 }
 
 # Application definition

@@ -37,10 +37,9 @@ services:
       - timescale
     environment:
       - DJANGO_SETTINGS_MODULE=canairio.settings.development
-      - DATABASE_USERNAME=canairio
-      - DATABASE_PASSWORD=canairio
-      - POSTGRESQL_HOST=timescale
+      - DATABASE_URL=postgresql://canairio:canairio@timescale/canairio
+      - DATABASE_NAME=canairio
       - INFLUXDB_HOST=influxdb
       - INFLUXDB_DATABASE=canairio
-      - DATABASE_NAME=canairio
       - ENVIRONMENT=development
+      - SECRET_KEY=so_secret
