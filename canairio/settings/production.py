@@ -4,7 +4,7 @@ import django_heroku
 
 ENVIRONMENT = 'production'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['gblabs.co']
 
