@@ -10,6 +10,7 @@ jobs:
       INFLUXDB_DATABASE: canairio
       DATABASE_NAME: circle_test
       ENVIRONMENT: development
+      SECRET_KEY: so_secret
     docker:
       - image: circleci/python:3.6.4-stretch
       - image: circleci/postgres:11-postgis-ram
