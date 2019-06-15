@@ -17,4 +17,16 @@ FB_STORAGE_BUCKET = getenvvar('FB_STORAGE_BUCKET')
 
 SECRET_KEY = getenvvar('SECRET_KEY')
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
 django_heroku.settings(locals())
+
+## This is used during development phase when testing production
+# with heroku, look at
+# https://github.com/kennethreitz/dj-database-url/issues/107
+# Uncomment when necessary
+# del DATABASES['default']['OPTIONS']['sslmode']
