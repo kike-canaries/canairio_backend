@@ -4,7 +4,7 @@ import django_heroku
 
 ENVIRONMENT = 'production'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['gblabs.co']
 
@@ -16,11 +16,5 @@ FB_DATABASE_URL = getenvvar('FB_DATABASE_URL')
 FB_STORAGE_BUCKET = getenvvar('FB_STORAGE_BUCKET')
 
 SECRET_KEY = getenvvar('SECRET_KEY')
-
-DATABASES = {
-    'default': config(
-        default=config('DATABASE_URL')
-    )
-}
 
 django_heroku.settings(locals())

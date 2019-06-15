@@ -11,3 +11,4 @@ canairioSnapshot/
 node_modules/
 __pycache__
 test-results/
+canairio/staticfiles/

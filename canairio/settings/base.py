@@ -36,6 +36,8 @@ DATABASES = {
     'default': config(default=DATABASE_URL)
 }
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Application definition
 
 INSTALLED_APPS = [
