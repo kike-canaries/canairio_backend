@@ -1,1 +1,1 @@
-web: gunicorn canairio.wsgi
+web: gunicorn canairio.wsgi --log-file -
