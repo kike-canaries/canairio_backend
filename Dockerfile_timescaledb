@@ -1,0 +1,4 @@
+FROM timescale/timescaledb-postgis:latest-pg11
+ARG db_name
+ENV POSTGRES_DB $db_name
+COPY create-dbs.sh /docker-entrypoint-initdb.d/
