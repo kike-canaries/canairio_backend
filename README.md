@@ -1,5 +1,7 @@
 # Canairio Backend
 
+[![CircleCI](https://circleci.com/gh/kike-canaries/canairio_backend.svg?style=svg)](https://circleci.com/gh/kike-canaries/canairio_backend)
+
 > Recibimos los datos provenientes de los [canair.ios](https://canair.io)
 
 Si tiene interés en analizar información proveniente de la red ciudadana de calidad del aire,
@@ -87,15 +89,6 @@ o para obtener la medición más reciente.
 Cada vez que haga cambios y los guarde en su entorno de desarrollo local estos
 se verán reflejados en la instancia que está ejecutando en docker.
 
-Para que pueda ver las trazas de los posibles erores por favor copie el archivo de configuración, en el mismo podrá hacer cambios de configuraciones si así lo desea.
-
-```bash
-cp scripts/dev_settings_local.py canairio/settings_local.py
-```
-
-Esto solamente debe hacerlo la primera vez, porque es posible que después quiera
-hacer más cambios sobre el mismo para su entorno de desarrollo.
-
 ### Pruebas
 
 Para correr las pruebas, ubíquese en el directorio clonado y ejecute:
@@ -109,7 +102,7 @@ docker-compose exec web bash
 Y una vez en el shell, podrá ejercitar las pruebas
 
 ```bash
-python manage.py test
+python manage.py test --settings=canairio.settings.testing
 ```
 
 Tenga en cuenta que la información se almacena en la misma instancia de
