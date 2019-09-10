@@ -28,6 +28,9 @@ def save_points(request):
     :return:
     """
     point_data = request.data
+    for key, value in point_data.items():
+        point_data['key'] = float(value)
+
     try:
         is_success = influx_client.write_points(point_data)
     except:
