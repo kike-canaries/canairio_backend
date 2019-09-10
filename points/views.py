@@ -28,11 +28,14 @@ def save_points(request):
     :return:
     """
     point_data = request.data
-    print(point_data)
     try:
+        for data_point in point_data:
+            for key, value in data_point.get('fields').items():
+                data_point['key'] = float(value)
         is_success = influx_client.write_points(point_data)
     except:
         logger.exception('Error while saving points.', extra={'extra-data': point_data})
+        print(point_data)
         return Response(data={'success': False}, status=400)
     response_data = {
         'result': is_success
