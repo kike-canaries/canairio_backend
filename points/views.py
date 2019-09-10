@@ -30,8 +30,9 @@ def save_points(request):
     point_data = request.data
     try:
         for data_point in point_data:
-            for key, value in data_point.get('fields').items():
-                data_point['key'] = float(value)
+            fields = data_point.get('fields')
+            for key, value in fields.items():
+                fields[key] = float(value)
         is_success = influx_client.write_points(point_data)
     except:
         logger.exception('Error while saving points.', extra={'extra-data': point_data})
