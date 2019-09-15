@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  pgdata:
+
 services:
 
   influxdb:
@@ -11,7 +14,7 @@ services:
   timescale:
     image: timescale/timescaledb-postgis:latest-pg11
     ports:
-      - "15432:5432"
+      - "15432:15432"
     build:
       context: .
       args:
@@ -22,6 +25,18 @@ services:
       - POSTGRES_PASSWORD=canairio
       - POSTGRES_DB=canairio
       - POSTGRES_TEST_DB=canairio_test
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'canairio_user'
+      POSTGRES_PASSWORD: 'canairio_password'
+      POSTGRES_DB: 'canairio'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   web:
     build: .
     command: ./start
@@ -32,12 +47,13 @@ services:
     depends_on:
       - influxdb
       - timescale
+      - db
     links:
       - influxdb
       - timescale
     environment:
       - DJANGO_SETTINGS_MODULE=canairio.settings.development
-      - DATABASE_URL=postgresql://canairio:canairio@timescale/canairio
+      - DATABASE_URL=postgresql://canairio_user:canairio_password@db/canairio
       - DATABASE_NAME=canairio
       - INFLUXDB_HOST=influxdb
       - INFLUXDB_DATABASE=canairio
