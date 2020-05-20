@@ -22,7 +22,7 @@ freezegun==0.3.11
 gcloud==0.17.0
 googleapis-common-protos==1.5.8
 gunicorn==19.9.0
-httplib2==0.12.1
+httplib2==0.18.0
 idna==2.8
 inflection==0.3.1
 influxdb==5.2.2
