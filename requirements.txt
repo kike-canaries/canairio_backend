@@ -51,5 +51,5 @@ six==1.12.0
 unittest-xml-reporting==2.5.1
 toml==0.10.0
 uritemplate==3.0.0
-urllib3==1.24.2
+urllib3==1.26.5
 whitenoise==4.1.2
